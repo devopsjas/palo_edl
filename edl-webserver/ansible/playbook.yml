@@ -1,0 +1,19 @@
+---
+- name: Setup Nginx Web Server
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Deploy EDL File
+      copy:
+        src: edl-file.txt
+        dest: /var/www/html/edl-file.txt
+
+    - name: Restart Nginx
+      systemd:
+        name: nginx
+        state: restarted
